@@ -34,7 +34,7 @@ export default class Leftnav extends Component {
             <Divider hidden />
             <Menu.Item name="daily" active={activeItem === 'daily'} onClick={this.handleItemClick} as="a">Daily Spendings</Menu.Item>
             <Menu.Item name="monthly" active={activeItem === 'monthly'} onClick={this.handleItemClick} as="a">Monthly Spendings</Menu.Item>
-            <Menu.Item name="yearly" active={activeItem === 'monthly'} onClick={this.handleItemClick} as="a">Yearly Spendings</Menu.Item>
+            <Menu.Item name="yearly" active={activeItem === 'yearly'} onClick={this.handleItemClick} as="a">Yearly Spendings</Menu.Item>
             <Divider hidden />
           </Menu>
       </Grid.Column>

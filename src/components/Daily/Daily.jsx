@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './Daily.module.scss';
-import { Button, Form, Divider, Table, Grid, Header, Message, Icon, Dropdown, Input } from 'semantic-ui-react'
+import { Button, Form, Divider, Table, Grid, Header, Message, Icon, Dropdown } from 'semantic-ui-react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { firestore } from '../../firebase';
@@ -9,6 +9,7 @@ import { firestore } from '../../firebase';
 export default class Daily extends Component {
     state = {
         spends : [],
+        filteredspends : [],
         loading : false,
         error: false,
         formData : {
@@ -37,8 +38,19 @@ export default class Daily extends Component {
     handleChangeFilter = date => {
         this.setState({
             filterDate: date
-        })
+        }, this.dateFilter(date))
     }
+
+    dateFilter = (date) => {
+       let filteredspends = this.state.spends.filter(item => this.dateReturner(item.date.toDate()) === this.dateReturner(date))
+       this.setState({filteredspends})
+    }
+
+    dataRestore = () => {
+        this.setState({filteredspends : this.state.spends})
+    }
+
+
 
     handleChangeAmount = (event) => {
         this.setState({
@@ -58,7 +70,8 @@ export default class Daily extends Component {
                     return Object.assign(doc.data(), { spendID : doc.id})
                 }) 
                 spends.sort((a,b) => b.date - a.date)
-                this.setState( {spends : spends.reverse()} )        
+                this.setState( {spends : spends.reverse(),
+                                filteredspends : spends.reverse()} )        
             })
             .then(() => {
                 this.setState({loading: false})
@@ -116,7 +129,7 @@ export default class Daily extends Component {
                         <label>Amount *</label>
                         <input name="amount" type='number' placeholder='£' value={this.state.formData.amount} onChange={this.handleChangeAmount} />
                     </Form.Field>
-                    <Form.Field label="Date" control={DatePicker} selected={this.state.formData.date} onChange={this.handleChange}/>
+                    <Form.Field label="Date" control={DatePicker} selected={this.state.formData.date} dateFormat="d/M/yyyy" onChange={this.handleChange}/>
                     <Button type='submit' onClick={this.submitButton}>Submit</Button>
                 </Form>
                 <Message hidden={!this.state.error} color="red">
@@ -139,9 +152,15 @@ export default class Daily extends Component {
                                     className='icon'
                                 >
                                     <Dropdown.Menu>
+                                    <Dropdown.Header content='Date Filter' />
+                                        <Dropdown.Item>
                                         <Form onClick={e => e.stopPropagation()}>
-                                            <Form.Field control={DatePicker} selected={this.state.filterDate} onChange={this.handleChangeFilter}/>
+                                            <Form.Field control={DatePicker} selected={this.state.filterDate} dateFormat="d/M/yyyy" onChange={this.handleChangeFilter}/>
                                         </Form>
+                                        </Dropdown.Item>
+                                        <Dropdown.Divider />
+                                        <Dropdown.Item onClick={this.dataRestore}>All</Dropdown.Item>
+                                        <Dropdown.Item>Current Month</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                                 
@@ -152,7 +171,7 @@ export default class Daily extends Component {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                            {this.state.spends.map((spend, index) => (  
+                            {this.state.filteredspends.map((spend, index) => (  
                               <Table.Row key={index}>
                                     <Table.Cell>{this.dateReturner(spend.date.toDate())}</Table.Cell>
                                     <Table.Cell>{spend.name}</Table.Cell>

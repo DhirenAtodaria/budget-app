@@ -1,5 +1,17 @@
 .container{
-    height: 50vh;
+    height: 80vh;
     width: 100%;
-    background-color: blue;
+    // background-color: blue;
+    display: flex;
+    justify-content: space-around;
+
+    h2 {
+        text-align: center;
+    }
+
+    .graph {
+        height: 400px;
+        width: 60%
+        
+    }
 }
