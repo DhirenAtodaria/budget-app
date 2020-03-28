@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import styles from './Daily.module.scss';
-import { Button, Form, Divider, Table, Grid, Header, Message, Icon, Dropdown } from 'semantic-ui-react'
+import './Daily.css';
+import { Button, Form, Loader, Divider, Table, Grid, Header, Message, Icon, Dropdown, Transition } from 'semantic-ui-react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { firestore } from '../../firebase';
-
 
 export default class Daily extends Component {
     state = {
@@ -18,7 +17,8 @@ export default class Daily extends Component {
             date: new Date(),
             type : "daily"
         },
-        filterDate: new Date()
+        filterDate: new Date(),
+        active: false
     }
 
     componentDidMount() {
@@ -50,8 +50,6 @@ export default class Daily extends Component {
         this.setState({filteredspends : this.state.spends})
     }
 
-
-
     handleChangeAmount = (event) => {
         this.setState({
             formData: {
@@ -74,9 +72,8 @@ export default class Daily extends Component {
                                 filteredspends : spends.reverse()} )        
             })
             .then(() => {
-                this.setState({loading: false})
+                this.setState({loading: false, active: true})
             })
-            
     }
 
     submitButton = () => {
@@ -110,9 +107,17 @@ export default class Daily extends Component {
         return `${day}/${month}/${year}`
     }
 
+    dataPresent = () => {
+        if (this.state.filteredspends.length === 0) {
+            return false
+        } else {
+            return true
+        }
+    }
+
     render() {
         return (
-            <section className={styles.container}>
+            <section>
                 <Grid padded>
                     <Grid.Row>
                         <Header dividing size="huge" as="h1">
@@ -139,6 +144,7 @@ export default class Daily extends Component {
                     </p>
                 </Message>
                 <Divider section horizontal>Daily Spends</Divider>
+                {this.state.active &&
                 <Table color="green" singleLine striped selectable unstackable>
                     <Table.Header>
                         <Table.Row>
@@ -170,7 +176,7 @@ export default class Daily extends Component {
                             <Table.HeaderCell textAlign="center">Remove Item</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
-                    <Table.Body>
+                    <Transition.Group as={Table.Body} animation="fade up" duration={200}>
                             {this.state.filteredspends.map((spend, index) => (  
                               <Table.Row key={index}>
                                     <Table.Cell>{this.dateReturner(spend.date.toDate())}</Table.Cell>
@@ -179,8 +185,9 @@ export default class Daily extends Component {
                                     <Table.Cell textAlign="center"><Icon onClick={() => this.dataRemover(spend.spendID)} link name="remove" size="large" color="red" /></Table.Cell>
                               </Table.Row>
                             ))}
-                    </Table.Body>
+                    </Transition.Group>
                 </Table>
+                }
             </section>
         )
     }

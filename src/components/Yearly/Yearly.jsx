@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './Yearly.module.scss';
-import { Button, Form, Divider, Table, Grid, Header, Message, Icon } from 'semantic-ui-react'
+import { Button, Form, Divider, Table, Grid, Header, Message, Icon, Transition } from 'semantic-ui-react'
 import { firestore } from '../../firebase';
 
 export default class Yearly extends Component {
@@ -67,6 +67,14 @@ export default class Yearly extends Component {
         }
     }
 
+    dataPresent = () => {
+        if (this.state.spends.length === 0) {
+            return false
+        } else {
+            return true
+        }
+    }
+
     render() {
         
         return (
@@ -97,7 +105,8 @@ export default class Yearly extends Component {
                     </p>
                 </Message>
                 <Divider section horizontal>Yearly Spends</Divider>
-                <Table singleLine striped selectable unstackable>
+                {this.dataPresent() &&
+                <Table color="green" singleLine striped selectable unstackable>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Type</Table.HeaderCell>
@@ -106,7 +115,7 @@ export default class Yearly extends Component {
                             <Table.HeaderCell textAlign="center">Remove Item</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
-                    <Table.Body>
+                    <Transition.Group as={Table.Body} animation="fade up" duration={2000}>
                             {this.state.spends.map((spend, index) => (
                               <Table.Row key={index}>
                                     <Table.Cell>Yearly</Table.Cell>
@@ -115,8 +124,9 @@ export default class Yearly extends Component {
                                     <Table.Cell textAlign="center"><Icon onClick={() => this.dataRemover(spend.spendID)} link name="remove" size="large" color="red" /></Table.Cell>
                               </Table.Row>
                             ))}
-                    </Table.Body>
+                    </Transition.Group>
                 </Table>
+            }
             </section>
         )
     }

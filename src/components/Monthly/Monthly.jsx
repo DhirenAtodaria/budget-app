@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './Monthly.module.scss';
-import { Button, Form, Divider, Table, Grid, Header, Message, Icon } from 'semantic-ui-react'
+import { Button, Form, Divider, Table, Grid, Header, Message, Icon, Transition } from 'semantic-ui-react'
 import { firestore } from '../../firebase';
 
 export default class Monthly extends Component {
@@ -67,15 +67,24 @@ export default class Monthly extends Component {
         }
     }
 
+    dataPresent = () => {
+        if (this.state.spends.length === 0) {
+            return false
+        } else {
+            return true
+        }
+    }
+
     render() {
-        
         return (
             <section className={styles.container}>
                 <Grid padded>
                     <Grid.Row>
                         <Header dividing size="huge" as="h1">
                         Recurring Monthly Spendings
+                        <Header style={{opacity : 0.7, margin: "10px 0px", width: "100%"}}  as='h2'>This is where you enter your recurring  monthly bills.</Header>
                         </Header>
+                        
                     </Grid.Row>
                 </Grid>
                 <Form loading={this.state.loading}>
@@ -97,7 +106,8 @@ export default class Monthly extends Component {
                     </p>
                 </Message>
                 <Divider section horizontal>Monthly Spends</Divider>
-                <Table singleLine striped selectable unstackable>
+                {this.dataPresent() &&
+                <Table color="green"  singleLine striped selectable unstackable>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Type</Table.HeaderCell>
@@ -106,7 +116,7 @@ export default class Monthly extends Component {
                             <Table.HeaderCell textAlign="center">Remove Item</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
-                    <Table.Body>
+                    <Transition.Group as={Table.Body} animation="fade up" duration={2000}>
                             {this.state.spends.map((spend, index) => (
                               <Table.Row key={index}>
                                     <Table.Cell>Monthly</Table.Cell>
@@ -115,8 +125,9 @@ export default class Monthly extends Component {
                                     <Table.Cell textAlign="center"><Icon onClick={() => this.dataRemover(spend.spendID)} link name="remove" size="large" color="red" /></Table.Cell>
                               </Table.Row>
                             ))}
-                    </Table.Body>
+                    </Transition.Group>
                 </Table>
+            }
             </section>
         )
     }

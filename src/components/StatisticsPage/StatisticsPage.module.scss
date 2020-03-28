@@ -1,5 +1,5 @@
 .container{
-    height: 80vh;
+    height: 78vh;
     width: 100%;
     // background-color: blue;
     display: flex;
@@ -10,8 +10,14 @@
     }
 
     .graph {
-        height: 400px;
+        height: 300px;
         width: 60%
         
+    }
+
+    .cardcontainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
     }
 }

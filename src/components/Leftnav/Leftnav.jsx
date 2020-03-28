@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, globalHistory } from '@reach/router';
+import { globalHistory } from '@reach/router';
 import './Leftnav.css'
 import "semantic-ui-css/semantic.min.css";
 
@@ -19,7 +19,6 @@ export default class Leftnav extends Component {
 
   render() {
     const activeItem = this.state.activeItem
-    console.log(activeItem)
       return(
       <Grid.Column
           tablet={3}

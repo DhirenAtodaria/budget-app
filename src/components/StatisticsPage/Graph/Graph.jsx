@@ -65,21 +65,21 @@ export default class Graph extends Component {
                     
                     axisBottom={{
                         format: '%b %d',
-                        tickValues: 'every 2 days',
+                        tickValues: 'every 6 days',
                         legend: 'Date',
                         legendOffset: 40,
                         legendPosition: 'middle'
                     }}
-                    curve={'monotoneX'}
+                    curve={'catmullRom'}
                     enablePointLabel={false}
                     pointSymbol={CustomSymbol}
-                    pointSize={16}
+                    pointSize={9}
                     pointBorderWidth={1}
                     pointBorderColor={{
                         from: 'color',
                         modifiers: [['darker', 0.3]],
                     }}
-                    colors={{ scheme: 'category10' }}
+                    colors={this.props.scheme}
                     lineWidth={4}
 
                     yFormat={value => '£' + Number(value)}          

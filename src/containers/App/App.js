@@ -4,7 +4,7 @@ import './App.css';
 import Navmenu from '../../components/Navmenu';
 import Leftnav from '../../components/Leftnav';
 import { Grid } from 'semantic-ui-react';
-import Routes from '../../Routes/Routes';
+import MainRoutes from '../../Routes/MainRoutes';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
             floated="right"
             id="content"
           >
-            <Routes />
+            <MainRoutes />
           </Grid.Column>
       </Grid>
       
