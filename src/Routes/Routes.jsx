@@ -1,10 +1,14 @@
 /* eslint-disable no-fallthrough */
 import React, { Component } from 'react';
-import { Router, Redirect, globalHistory } from '@reach/router'
+import { Router, Redirect, globalHistory, createHistory, LocationProvider} from '@reach/router'
+import createHashSource from 'hash-source'
 import Main from '../containers/Main';
 import Login from '../containers/Login';
 import styles from './Router.module.scss';
 import firebase, { firestore } from '../firebase';
+
+let source = createHashSource();
+let history = createHistory(source)
 
 export default class Routes extends Component {
     state = {
@@ -175,6 +179,7 @@ export default class Routes extends Component {
     
     render() {
         return(
+            <LocationProvider history={history}>
             <Router className={styles.container} primary={false}>
                 <Redirect noThrow from="/" to="login" />
                 <Main user={this.state.user} signOut={this.signOut} path="app/*" />
@@ -195,6 +200,7 @@ export default class Routes extends Component {
                     path="login" 
                 />
             </Router>
+            </LocationProvider>
         )
     }
 }
