@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Redirect, createHistory, LocationProvider } from '@reach/router'
+import createHashSource from 'hash-source'
 import Dashboard from '../components/Dashboard';
 import Daily from '../components/Daily';
 import Monthly from '../components/Monthly';
