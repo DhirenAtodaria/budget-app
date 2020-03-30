@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/bugdet-app/precache-manifest.a2f2831022acc37cc2f481417caf35e5.js"
+  "/bugdet-app/precache-manifest.6a05dea7c4abd1913fd9e641a78731cf.js"
 );
 
 self.addEventListener('message', (event) => {
