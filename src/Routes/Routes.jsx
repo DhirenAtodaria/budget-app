@@ -114,7 +114,7 @@ export default class Routes extends Component {
                         user: result.user,
                         additionalUserInfo: result.additionalUserInfo
                     });
-                    globalHistory.navigate("/app"); 
+                    globalHistory.navigate("#/app/dashboard"); 
                 }
             })
     }
@@ -173,7 +173,7 @@ export default class Routes extends Component {
                 budget: this.state.signUpFormData.budget,
             })
             .then(() => {
-                globalHistory.navigate("/app");
+                globalHistory.navigate("#/app/dashboard");
             })
     }
     
