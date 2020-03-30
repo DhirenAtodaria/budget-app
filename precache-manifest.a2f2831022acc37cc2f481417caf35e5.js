@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5519594ba661fd5990315f760369553e",
+    "revision": "cd91c6c740982f2c2a87e7040966ad21",
     "url": "/bugdet-app/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bugdet-app/static/css/2.bc5f6016.chunk.css"
   },
   {
-    "revision": "e30e44e2f6c7ab5a98f6",
+    "revision": "1f6540f6560ab22c0a1a",
     "url": "/bugdet-app/static/css/main.bc949f6f.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bugdet-app/static/js/2.f7702010.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "e30e44e2f6c7ab5a98f6",
-    "url": "/bugdet-app/static/js/main.7956a97c.chunk.js"
+    "revision": "1f6540f6560ab22c0a1a",
+    "url": "/bugdet-app/static/js/main.508a2a93.chunk.js"
   },
   {
     "revision": "809c268996b6a27adfb8",

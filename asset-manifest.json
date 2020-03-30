@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/bugdet-app/static/css/main.bc949f6f.chunk.css",
-    "main.js": "/bugdet-app/static/js/main.7956a97c.chunk.js",
-    "main.js.map": "/bugdet-app/static/js/main.7956a97c.chunk.js.map",
+    "main.js": "/bugdet-app/static/js/main.508a2a93.chunk.js",
+    "main.js.map": "/bugdet-app/static/js/main.508a2a93.chunk.js.map",
     "runtime-main.js": "/bugdet-app/static/js/runtime-main.f387ecb6.js",
     "runtime-main.js.map": "/bugdet-app/static/js/runtime-main.f387ecb6.js.map",
     "static/css/2.bc5f6016.chunk.css": "/bugdet-app/static/css/2.bc5f6016.chunk.css",
     "static/js/2.f7702010.chunk.js": "/bugdet-app/static/js/2.f7702010.chunk.js",
     "static/js/2.f7702010.chunk.js.map": "/bugdet-app/static/js/2.f7702010.chunk.js.map",
     "index.html": "/bugdet-app/index.html",
-    "precache-manifest.287fd82b7436999f4e302109850bd1de.js": "/bugdet-app/precache-manifest.287fd82b7436999f4e302109850bd1de.js",
+    "precache-manifest.a2f2831022acc37cc2f481417caf35e5.js": "/bugdet-app/precache-manifest.a2f2831022acc37cc2f481417caf35e5.js",
     "service-worker.js": "/bugdet-app/service-worker.js",
     "static/css/2.bc5f6016.chunk.css.map": "/bugdet-app/static/css/2.bc5f6016.chunk.css.map",
     "static/css/main.bc949f6f.chunk.css.map": "/bugdet-app/static/css/main.bc949f6f.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.bc5f6016.chunk.css",
     "static/js/2.f7702010.chunk.js",
     "static/css/main.bc949f6f.chunk.css",
-    "static/js/main.7956a97c.chunk.js"
+    "static/js/main.508a2a93.chunk.js"
   ]
 }
