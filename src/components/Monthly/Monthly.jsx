@@ -11,11 +11,21 @@ export default class Monthly extends Component {
         formData : {
             name: "",
             amount: null,
-            type : "monthly"
+            type : "monthly",
+            uid: null
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.user !== prevProps.user && this.props.user !== null) {
+            this.setState({ formData: {...this.state.formData, uid: this.props.user.uid} }, this.dataRetriever())
         }
     }
 
     componentDidMount() {
+        if (this.props.user){
+            this.setState({ formData: {...this.state.formData, uid: this.props.user.uid} })
+        }
         this.dataRetriever();
     }
 
@@ -29,18 +39,21 @@ export default class Monthly extends Component {
     }
 
     dataRetriever = () => {
-        firestore
-            .collection("monthly")
-            .get()
-            .then(query => {
-                const spends = query.docs.map(doc => {
-                    return Object.assign(doc.data(), { spendID : doc.id})
-                }) 
-                this.setState( {spends : spends.reverse()} )        
-            })
-            .then(() => {
-                this.setState({loading: false})
-            })
+        if (this.props.user) {
+            firestore
+                .collection("monthly")
+                .where("uid", "==", this.props.user.uid)
+                .get()
+                .then(query => {
+                    const spends = query.docs.map(doc => {
+                        return Object.assign(doc.data(), { spendID : doc.id})
+                    }) 
+                    this.setState( {spends : spends.reverse()} )        
+                })
+                .then(() => {
+                    this.setState({loading: false})
+                })
+        }
             
     }
 
@@ -76,6 +89,7 @@ export default class Monthly extends Component {
     }
 
     render() {
+        console.log(this.state.formData.uid)
         return (
             <section className={styles.container}>
                 <Grid padded>

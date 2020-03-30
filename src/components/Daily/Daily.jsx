@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Daily.css';
-import { Button, Form, Loader, Divider, Table, Grid, Header, Message, Icon, Dropdown, Transition } from 'semantic-ui-react'
+import { Button, Form, Divider, Table, Grid, Header, Message, Icon, Dropdown, Transition } from 'semantic-ui-react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { firestore } from '../../firebase';
@@ -15,13 +15,23 @@ export default class Daily extends Component {
             name: "",
             amount: "",
             date: new Date(),
-            type : "daily"
+            type : "daily",
+            uid: null
         },
         filterDate: new Date(),
         active: false
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.user !== prevProps.user && this.props.user !== null) {
+            this.setState({ formData: {...this.state.formData, uid: this.props.user.uid} }, this.dataRetriever())
+        }
+    }
+
     componentDidMount() {
+        if (this.props.user) {
+            this.setState({ formData: {...this.state.formData, uid: this.props.user.uid} })
+        }
         this.dataRetriever();
     }
 
@@ -60,20 +70,23 @@ export default class Daily extends Component {
     }
 
     dataRetriever = () => {
-        firestore
-            .collection("spendings")
-            .get()
-            .then(query => {
-                const spends = query.docs.map(doc => {
-                    return Object.assign(doc.data(), { spendID : doc.id})
-                }) 
-                spends.sort((a,b) => b.date - a.date)
-                this.setState( {spends : spends.reverse(),
-                                filteredspends : spends.reverse()} )        
-            })
-            .then(() => {
-                this.setState({loading: false, active: true})
-            })
+        if (this.props.user) {
+            firestore
+                .collection("spendings")
+                .where("uid", "==", this.props.user.uid)
+                .get()
+                .then(query => {
+                    const spends = query.docs.map(doc => {
+                        return Object.assign(doc.data(), { spendID : doc.id})
+                    }) 
+                    spends.sort((a,b) => b.date - a.date)
+                    this.setState( {spends : spends.reverse(),
+                                    filteredspends : spends.reverse()} )        
+                })
+                .then(() => {
+                    this.setState({loading: false, active: true})
+                })
+        }
     }
 
     submitButton = () => {

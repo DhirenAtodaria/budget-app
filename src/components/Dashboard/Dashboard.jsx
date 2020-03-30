@@ -32,7 +32,7 @@ class Dashboard extends Component {
             </Header>
           </Grid.Row>
           <Grid.Row>
-            <StatisticsPage />
+            <StatisticsPage user={this.props.user} />
           </Grid.Row>
         </Grid>
       </>

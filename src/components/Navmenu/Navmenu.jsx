@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styles from './Navmenu.module.scss'
 import "semantic-ui-css/semantic.min.css";
 
 import {Grid, Menu, Input, Divider, Button, Icon} from "semantic-ui-react";
@@ -37,7 +36,7 @@ class Navmenu extends Component {
                     </Menu.Item>
                         <Menu.Item as="a">Dashboard</Menu.Item>
                         <Menu.Item as="a">About</Menu.Item>
-                        <Menu.Item as="a">Help</Menu.Item>
+                        <Menu.Item as="a" onClick={this.props.signOut}>Logout</Menu.Item>
                     </Menu.Menu>
                 </Menu>
             </Grid>

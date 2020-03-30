@@ -11,11 +11,11 @@ export default class Routes extends Component {
         return(
             <Router className={styles.container} primary={false}>
                 <Redirect noThrow from="/" to="dashboard" />
-                <Dashboard path="dashboard" />
-                <Daily path="daily" />
-                <Monthly path="monthly" />
-                <Yearly path="yearly" />
+                <Dashboard user={this.props.user} path="dashboard" />
+                <Daily user={this.props.user} path="daily" />
+                <Monthly user={this.props.user} path="monthly" />
+                <Yearly user={this.props.user} path="yearly" />
             </Router>
         )
     }
-}
+} 

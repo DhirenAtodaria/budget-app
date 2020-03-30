@@ -14,7 +14,7 @@ export default class Leftnav extends Component {
   }
 
   navigate = (name) => {
-    globalHistory.navigate(`/${name}`)
+    globalHistory.navigate(`${name}`)
   }
 
   render() {

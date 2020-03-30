@@ -11,11 +11,21 @@ export default class Yearly extends Component {
         formData : {
             name: "",
             amount: null,
-            type : "yearly"
+            type : "yearly",
+            uid: null
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.user !== prevProps.user && this.props.user !== null) {
+            this.setState({ formData: {...this.state.formData, uid: this.props.user.uid} }, this.dataRetriever())
         }
     }
 
     componentDidMount() {
+        if (this.props.user){
+            this.setState({ formData: {...this.state.formData, uid: this.props.user.uid} })
+        }
         this.dataRetriever();
     }
 
@@ -29,19 +39,21 @@ export default class Yearly extends Component {
     }
 
     dataRetriever = () => {
-        firestore
-            .collection("yearly")
-            .get()
-            .then(query => {
-                const spends = query.docs.map(doc => {
-                    return Object.assign(doc.data(), { spendID : doc.id})
-                }) 
-                this.setState( {spends : spends.reverse()} )        
-            })
-            .then(() => {
-                this.setState({loading: false})
-            })
-            
+        if (this.props.user) {
+            firestore
+                .collection("yearly")
+                .where("uid", "==", this.props.user.uid)
+                .get()
+                .then(query => {
+                    const spends = query.docs.map(doc => {
+                        return Object.assign(doc.data(), { spendID : doc.id})
+                    }) 
+                    this.setState( {spends : spends.reverse()} )        
+                })
+                .then(() => {
+                    this.setState({loading: false})
+                })
+        }
     }
 
     dataRemover = (value) => {
@@ -76,7 +88,6 @@ export default class Yearly extends Component {
     }
 
     render() {
-        
         return (
             <section className={styles.container}>
                 <Grid padded>
