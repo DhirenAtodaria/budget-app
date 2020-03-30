@@ -29,7 +29,6 @@ export default class StatisticsPage extends Component {
   }
 
   componentDidMount() {
-    console.log("running?")
     const date = new Date();
     const firstDay = new Date(date.getFullYear(), date.getMonth() - 1, 1);
     const lastDay = new Date(date.getFullYear(), date.getMonth(), 0, 23, 59);
@@ -65,7 +64,6 @@ export default class StatisticsPage extends Component {
             });
         })
         .then(() => {
-          console.log("getting daily data")
           firestore
             .collection("spendings")
             .where("date", ">=", firstDay)
@@ -92,7 +90,7 @@ export default class StatisticsPage extends Component {
                 );
                 let object = {};
                 let dateArray = daily.filter(item => item.date === currentDate);
-                let amount = 0;
+                let amount = (this.state.monthly / 30) + (this.state.yearly / 365);
                 dateArray.forEach(item => (amount += Number(item.amount)));
                 object["x"] = currentDate;
                 object["y"] = amount;
@@ -100,12 +98,6 @@ export default class StatisticsPage extends Component {
                 month2.splice(month2.indexOf(currentMonthObject2), 1, object);
                 index += dateArray.length;
               }
-              month.forEach(
-                item =>
-                  (item.y += Math.round(
-                    this.state.monthly / 30 + this.state.yearly / 365
-                  ))
-              );
               this.setState({
                 data: [
                   {
@@ -141,11 +133,12 @@ export default class StatisticsPage extends Component {
       let dateObject = {};
       dateObject["x"] = this.dateReturner(new Date(prevMonthDate));
       dateObject["y"] = Math.round(
-        this.state.monthly / 30 + this.state.yearly / 365
+        (this.state.monthly / 30) + (this.state.yearly / 365)
       );
       month.push(dateObject);
       prevMonthDate.setDate(prevMonthDate.getDate() + 1);
     }
+    console.log(month)
     return month;
   };
 
