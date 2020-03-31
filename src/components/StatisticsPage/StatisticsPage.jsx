@@ -89,13 +89,18 @@ export default class StatisticsPage extends Component {
                   item => item.x === currentDate
                 );
                 let object = {};
+                let object2 = {};
                 let dateArray = daily.filter(item => item.date === currentDate);
-                let amount = (this.state.monthly / 30) + (this.state.yearly / 365);
+                let amount = Math.round((this.state.monthly / 30) + (this.state.yearly / 365));
+                let amount2 = 0
                 dateArray.forEach(item => (amount += Number(item.amount)));
+                dateArray.forEach(item => (amount2 += Number(item.amount)));
                 object["x"] = currentDate;
                 object["y"] = amount;
+                object2["x"] = currentDate;
+                object2["y"] = amount2
                 month.splice(month.indexOf(currentMonthObject), 1, object);
-                month2.splice(month2.indexOf(currentMonthObject2), 1, object);
+                month2.splice(month2.indexOf(currentMonthObject2), 1, object2);
                 index += dateArray.length;
               }
               this.setState({
