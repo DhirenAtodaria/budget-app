@@ -65,7 +65,7 @@ export default class Graph extends Component {
                     
                     axisBottom={{
                         format: '%b %d',
-                        tickValues: 'every 6 days',
+                        tickValues: 'every 8 days',
                         legend: 'Date',
                         legendOffset: 40,
                         legendPosition: 'middle'

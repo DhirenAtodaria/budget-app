@@ -10,14 +10,22 @@
     }
 
     .graph {
-        height: 300px;
-        width: 60%
+        height: 100%;
+        width: 60%;
+        
+        .graphcontainer {
+            height: 50%;
+        }
         
     }
 
     .cardcontainer {
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        justify-content: space-between;
+
+        @media screen and (max-width: 700px){
+            width: 175px;
+        }
     }
 }

@@ -195,9 +195,12 @@ export default class StatisticsPage extends Component {
       <section className={styles.container}>
           <Loader active={this.state.activeLoader} />
         <div className={styles.graph}>
+          <div className={styles.graphcontainer}>
           {this.allDataPresent() && (
             <Graph scheme={{ scheme: "category10" }} data={this.state.data} />
           )}
+          </div>
+          <div className={styles.graphcontainer}>
           {this.allDataPresent() && (
             <h4 style={{ opacity: 0.7, textAlign: "center" }}>
               Excluding Yearly/Monthly Bills
@@ -206,6 +209,7 @@ export default class StatisticsPage extends Component {
           {this.allDataPresent() && (
             <Graph scheme={{ scheme: "nivo" }} data={this.state.data2} />
           )}
+          </div>
         </div>
         {this.state.dataPresent && <div className={styles.cardcontainer}>
           {(this.state.monthly) ? (

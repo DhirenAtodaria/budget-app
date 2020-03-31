@@ -4,6 +4,7 @@ import Dashboard from '../components/Dashboard';
 import Daily from '../components/Daily';
 import Monthly from '../components/Monthly';
 import Yearly from '../components/Yearly';
+import About from '../containers/About';
 import styles from './Router.module.scss';
 
 export default class Routes extends Component {
@@ -15,6 +16,7 @@ export default class Routes extends Component {
                 <Daily user={this.props.user} path="daily" />
                 <Monthly user={this.props.user} path="monthly" />
                 <Yearly user={this.props.user} path="yearly" />
+                <About path="about" />
             </Router>
         )
     }
