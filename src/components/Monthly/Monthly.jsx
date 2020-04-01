@@ -89,7 +89,6 @@ export default class Monthly extends Component {
     }
 
     render() {
-        console.log(this.state.formData.uid)
         return (
             <section className={styles.container}>
                 <Grid padded>

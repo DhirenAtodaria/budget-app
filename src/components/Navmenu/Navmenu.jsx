@@ -51,7 +51,7 @@ class Navmenu extends Component {
               </Menu.Item>
               <Menu.Menu position="right">
                 <Menu.Item name="dashboard" onClick={this.handleItemClick} as="a">Dashboard</Menu.Item>
-                <Menu.Item as="a">About/Help</Menu.Item>
+                <Menu.Item name="about" onClick={this.handleItemClick} as="a">About/Help</Menu.Item>
                 <Menu.Item>
                   <Button
                     basic

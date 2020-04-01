@@ -23,7 +23,6 @@ export default class StatisticsPage extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.user !== prevProps.user) {
-      console.log(this.props.user)
       this.componentDidMount()
     }
   }
@@ -143,7 +142,6 @@ export default class StatisticsPage extends Component {
       month.push(dateObject);
       prevMonthDate.setDate(prevMonthDate.getDate() + 1);
     }
-    console.log(month)
     return month;
   };
 
@@ -190,7 +188,6 @@ export default class StatisticsPage extends Component {
   }
 
   render() {
-    console.log(this.state.data)
     return (
       <section className={styles.container}>
           <Loader active={this.state.activeLoader} />
