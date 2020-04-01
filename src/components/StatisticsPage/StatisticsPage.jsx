@@ -343,43 +343,6 @@ export default class StatisticsPage extends Component {
           </div>
           )}
         </div>
-        {/* {this.state.dataPresent && <div className={styles.cardcontainer}>
-          {(this.state.monthly) ? (
-            <Card
-              
-              header="Current Monthly Bills"
-              description={`For the month of March 2020 your current monthly bills are £${this.state.monthly}`}
-            />
-          ) :
-          (
-            <Card
-            
-            header="Current Monthly Bills"
-            description={`You do not currently have any monthly bills.`}
-          />
-          )
-          }
-
-          {(this.state.yearly) ? (
-            <Card
-              
-              header="Current Yearly Bills"
-              description={`For the month of Year 2020 your current Yearly bills are £${this.state.yearly}`}
-            />
-          )
-          :
-          (
-            <Card
-              
-              header="Current Yearly Bills"
-              description={`You do not currently have any yearly bills.`}
-            />
-          )
-          }
-            <Card  color='black' header='Total Monthly Spends - Feb' description={this.totalGetter()}/>
-            <Card  color='black' header='Amount Over/Under Budget - Feb' description={3000 - this.totalGetter()} />
-
-        </div>} */}
       </Responsive>
       </>
     );

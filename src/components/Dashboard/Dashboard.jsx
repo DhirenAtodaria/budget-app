@@ -17,8 +17,10 @@ class Dashboard extends Component {
     const options = { month: 'long'};
     const cDate = new Date()
     const previousDate = new Date(cDate.getFullYear(), cDate.getMonth()-1, 1)
-    const month = previousDate.toLocaleString('default', options);
-    return month
+    const prevMonth = previousDate.toLocaleString('default', options);
+    const currentDate = new Date(cDate.getFullYear(), cDate.getMonth(), 1)
+    const currentMonth = currentDate.toLocaleString('default', options);
+    return `${prevMonth}/${currentMonth}`
   }
 
   render() {
