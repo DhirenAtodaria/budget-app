@@ -25,12 +25,12 @@ export default class Graph extends Component {
 
         const lineGraphSettings = {
             theme: {
-                fontSize: '14px',
+                fontSize: '10px',
                 textColor: 'black',
                 axis : {
                     legend: {
                         text: {
-                            fontSize: 16,
+                            fontSize: 12,
                             fontWeight: "bold"
                         }
                     }
@@ -65,12 +65,13 @@ export default class Graph extends Component {
                     
                     axisBottom={{
                         format: '%b %d',
-                        tickValues: 'every 8 days',
+                        tickValues: this.props.tickValues,
                         legend: 'Date',
                         legendOffset: 40,
                         legendPosition: 'middle'
                     }}
                     curve={'catmullRom'}
+                    enablePoints={this.props.enablePoints}
                     enablePointLabel={false}
                     pointSymbol={CustomSymbol}
                     pointSize={9}

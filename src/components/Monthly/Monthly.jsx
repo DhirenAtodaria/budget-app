@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './Monthly.module.scss';
-import { Button, Form, Divider, Table, Grid, Header, Message, Icon, Transition } from 'semantic-ui-react'
+import { Button, Form, Divider, Table, Grid, Header, Message, Icon, Transition, Responsive } from 'semantic-ui-react'
 import { firestore } from '../../firebase';
 
 export default class Monthly extends Component {
@@ -123,7 +123,7 @@ export default class Monthly extends Component {
                 <Table color="green"  singleLine striped selectable unstackable>
                     <Table.Header>
                         <Table.Row>
-                            <Table.HeaderCell>Type</Table.HeaderCell>
+                            
                             <Table.HeaderCell>Name</Table.HeaderCell>
                             <Table.HeaderCell>Amount</Table.HeaderCell>
                             <Table.HeaderCell textAlign="center">Remove Item</Table.HeaderCell>
@@ -132,7 +132,7 @@ export default class Monthly extends Component {
                     <Transition.Group as={Table.Body} animation="fade up" duration={2000}>
                             {this.state.spends.map((spend, index) => (
                               <Table.Row key={index}>
-                                    <Table.Cell>Monthly</Table.Cell>
+                                    
                                     <Table.Cell>{spend.name}</Table.Cell>
                                     <Table.Cell>£{spend.amount}</Table.Cell>
                                     <Table.Cell textAlign="center"><Icon onClick={() => this.dataRemover(spend.spendID)} link name="remove" size="large" color="red" /></Table.Cell>

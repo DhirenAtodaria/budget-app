@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styles from "./StatisticsPage.module.scss";
 import Graph from "./Graph";
 import { firestore } from "../../firebase";
-import { Card, Loader } from "semantic-ui-react";
+import { Card, Loader, Responsive } from "semantic-ui-react";
 
 export default class StatisticsPage extends Component {
   state = {
@@ -31,6 +31,8 @@ export default class StatisticsPage extends Component {
     const date = new Date();
     const firstDay = new Date(date.getFullYear(), date.getMonth() - 1, 1);
     const lastDay = new Date(date.getFullYear(), date.getMonth(), 0, 23, 59);
+    const currentFirstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    const currentDay = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59);
 
     if (this.props.user) {
       firestore
@@ -124,6 +126,46 @@ export default class StatisticsPage extends Component {
             });
         })
         .then(() => {
+          firestore
+            .collection("spendings")
+            .where("date", ">=", currentFirstDay)
+            .where("date", "<=", currentDay)
+            .where("uid", "==", this.props.user.uid)
+            .get()
+            .then(query => {
+              let currentMonth = this.dateObjectRetreiverCurrentMonth();
+              const daily = query.docs.map(doc => doc.data());
+              daily.sort((a, b) => b.date - a.date).reverse();
+              daily.forEach(item => {
+                item.date = this.dateReturner(item.date.toDate());
+              });
+              let index = 0;
+              while (index < daily.length) {
+                let currentDate = daily[index].date;
+                let currentMonthObject = currentMonth.find(
+                  item => item.x === currentDate
+                );
+                let object = {};
+                let dateArray = daily.filter(item => item.date === currentDate);
+                let amount = Math.round((this.state.monthly / 30) + (this.state.yearly / 365));
+                dateArray.forEach(item => (amount += Number(item.amount)));
+                object["x"] = currentDate;
+                object["y"] = amount;
+                currentMonth.splice(currentMonth.indexOf(currentMonthObject), 1, object);
+                index += dateArray.length;
+              }
+              this.setState({
+                currentData: [
+                  {
+                    id: "Daily",
+                    color: "hsl(290, 70%, 50%)",
+                    data: currentMonth
+                  }
+                ]})
+                console.log(this.state.currentData)
+            })
+        })
+        .then(() => {
           this.setState({dataPresent: true})
         })
     }
@@ -159,6 +201,23 @@ export default class StatisticsPage extends Component {
     return month2;
   };
 
+  dateObjectRetreiverCurrentMonth = () => {
+    const date = new Date();
+    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    const currentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59);
+    let currentMonth = [];
+    while (firstDay.getDate() <= currentDate.getDate()) {
+      let dateObject = {};
+      dateObject["x"] = this.dateReturner(new Date(firstDay));
+      dateObject["y"] = Math.round(
+        (this.state.monthly / 30) + (this.state.yearly / 365)
+      );
+      currentMonth.push(dateObject);
+      firstDay.setDate(firstDay.getDate() + 1);
+    }
+    return currentMonth;
+  };
+
   getDaysInMonth = (month, year) => {
     var date = new Date(year, month, 1);
     var days = [];
@@ -170,7 +229,7 @@ export default class StatisticsPage extends Component {
   };
 
   allDataPresent = () => {
-    if (this.state.data && this.state.data2) {
+    if (this.state.data && this.state.data2 && this.state.currentData) {
       return true
     } else {
       return false
@@ -189,24 +248,34 @@ export default class StatisticsPage extends Component {
 
   render() {
     return (
-      <section className={styles.container}>
+      <>
+      <Responsive as={"section"} className={styles.container} minWidth={768}>
           <Loader active={this.state.activeLoader} />
         <div className={styles.graph}>
-          <div className={styles.graphcontainer}>
           {this.allDataPresent() && (
-            <Graph scheme={{ scheme: "category10" }} data={this.state.data} />
+            <div className={styles.graphcontainer}>
+              <h4 style={{ opacity: 0.7, textAlign: "center" }}>
+              Current Month's Spending Trend
+              </h4>
+              <Graph scheme={{ scheme: "category10" }} data={this.state.currentData} tickValues="every 1 days"/>
+            </div>
           )}
-          </div>
-          <div className={styles.graphcontainer}>
           {this.allDataPresent() && (
+          <div className={styles.graphcontainer}>
             <h4 style={{ opacity: 0.7, textAlign: "center" }}>
-              Excluding Yearly/Monthly Bills
+              Previous Month's Spending Trends
             </h4>
+            <Graph scheme={{ scheme: "category10" }} data={this.state.data} tickValues="every 6 days" />
+          </div>
           )}
           {this.allDataPresent() && (
-            <Graph scheme={{ scheme: "nivo" }} data={this.state.data2} />
-          )}
+          <div className={styles.graphcontainer}>
+            <h4 style={{ opacity: 0.7, textAlign: "center" }}>
+              Previous Month's Spending Trends Excluding Yearly/Monthly Bills
+            </h4>
+            <Graph scheme={{ scheme: "nivo" }} data={this.state.data2} tickValues="every 6 days" />
           </div>
+          )}
         </div>
         {this.state.dataPresent && <div className={styles.cardcontainer}>
           {(this.state.monthly) ? (
@@ -245,7 +314,74 @@ export default class StatisticsPage extends Component {
             <Card  color='black' header='Amount Over/Under Budget - Feb' description={3000 - this.totalGetter()} />
 
         </div>}
-      </section>
+      </Responsive>
+      <Responsive as={"section"} className={styles.container} maxWidth={768}>
+          <Loader active={this.state.activeLoader} />
+          <div className={styles.graph2}>
+          {this.allDataPresent() && (
+            <div className={styles.graphcontainer2}>
+              <h4 style={{ opacity: 0.7, textAlign: "center" }}>
+              Current Month's Spending Trend
+              </h4>
+              <Graph scheme={{ scheme: "category10" }} data={this.state.currentData} tickValues="every 6 days"/>
+            </div>
+          )}
+          {this.allDataPresent() && (
+          <div className={styles.graphcontainer2}>
+            <h4 style={{ opacity: 0.7, textAlign: "center" }}>
+              Previous Month's Spending Trends
+            </h4>
+            <Graph scheme={{ scheme: "category10" }} data={this.state.data} tickValues="every 6 days" />
+          </div>
+          )}
+          {this.allDataPresent() && (
+          <div className={styles.graphcontainer2}>
+            <h4 style={{ opacity: 0.7, textAlign: "center" }}>
+              Previous Month's Spending Trends Excluding Yearly/Monthly Bills
+            </h4>
+            <Graph scheme={{ scheme: "nivo" }} data={this.state.data2} tickValues="every 6 days" />
+          </div>
+          )}
+        </div>
+        {/* {this.state.dataPresent && <div className={styles.cardcontainer}>
+          {(this.state.monthly) ? (
+            <Card
+              
+              header="Current Monthly Bills"
+              description={`For the month of March 2020 your current monthly bills are £${this.state.monthly}`}
+            />
+          ) :
+          (
+            <Card
+            
+            header="Current Monthly Bills"
+            description={`You do not currently have any monthly bills.`}
+          />
+          )
+          }
+
+          {(this.state.yearly) ? (
+            <Card
+              
+              header="Current Yearly Bills"
+              description={`For the month of Year 2020 your current Yearly bills are £${this.state.yearly}`}
+            />
+          )
+          :
+          (
+            <Card
+              
+              header="Current Yearly Bills"
+              description={`You do not currently have any yearly bills.`}
+            />
+          )
+          }
+            <Card  color='black' header='Total Monthly Spends - Feb' description={this.totalGetter()}/>
+            <Card  color='black' header='Amount Over/Under Budget - Feb' description={3000 - this.totalGetter()} />
+
+        </div>} */}
+      </Responsive>
+      </>
     );
   }
 }
