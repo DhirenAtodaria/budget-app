@@ -257,7 +257,7 @@ export default class StatisticsPage extends Component {
               <h4 style={{ opacity: 0.7, textAlign: "center" }}>
               Current Month's Spending Trend
               </h4>
-              <Graph scheme={{ scheme: "category10" }} data={this.state.currentData} tickValues="every 1 days"/>
+              <Graph scheme={{ scheme: "category10" }} data={this.state.currentData} tickValues="every 1 days" curve="catmullRom"/>
             </div>
           )}
           {this.allDataPresent() && (
@@ -265,7 +265,7 @@ export default class StatisticsPage extends Component {
             <h4 style={{ opacity: 0.7, textAlign: "center" }}>
               Previous Month's Spending Trends
             </h4>
-            <Graph scheme={{ scheme: "category10" }} data={this.state.data} tickValues="every 6 days" />
+            <Graph scheme={{ scheme: "category10" }} data={this.state.data} tickValues="every 6 days" curve="basis" />
           </div>
           )}
           {this.allDataPresent() && (
@@ -273,7 +273,7 @@ export default class StatisticsPage extends Component {
             <h4 style={{ opacity: 0.7, textAlign: "center" }}>
               Previous Month's Spending Trends Excluding Yearly/Monthly Bills
             </h4>
-            <Graph scheme={{ scheme: "nivo" }} data={this.state.data2} tickValues="every 6 days" />
+            <Graph scheme={{ scheme: "nivo" }} data={this.state.data2} tickValues="every 6 days" curve="basis" />
           </div>
           )}
         </div>
@@ -323,7 +323,7 @@ export default class StatisticsPage extends Component {
               <h4 style={{ opacity: 0.7, textAlign: "center" }}>
               Current Month's Spending Trend
               </h4>
-              <Graph scheme={{ scheme: "category10" }} data={this.state.currentData} tickValues="every 6 days"/>
+              <Graph scheme={{ scheme: "category10" }} data={this.state.currentData} tickValues="every 6 days" curve="catmullRom"/>
             </div>
           )}
           {this.allDataPresent() && (
@@ -331,7 +331,7 @@ export default class StatisticsPage extends Component {
             <h4 style={{ opacity: 0.7, textAlign: "center" }}>
               Previous Month's Spending Trends
             </h4>
-            <Graph scheme={{ scheme: "category10" }} data={this.state.data} tickValues="every 6 days" />
+            <Graph scheme={{ scheme: "category10" }} data={this.state.data} tickValues="every 6 days" curve="basis"/>
           </div>
           )}
           {this.allDataPresent() && (
@@ -339,7 +339,7 @@ export default class StatisticsPage extends Component {
             <h4 style={{ opacity: 0.7, textAlign: "center" }}>
               Previous Month's Spending Trends Excluding Yearly/Monthly Bills
             </h4>
-            <Graph scheme={{ scheme: "nivo" }} data={this.state.data2} tickValues="every 6 days" />
+            <Graph scheme={{ scheme: "nivo" }} data={this.state.data2} tickValues="every 6 days" curve="basis"/>
           </div>
           )}
         </div>

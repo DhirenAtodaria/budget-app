@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './Monthly.module.scss';
-import { Button, Form, Divider, Table, Grid, Header, Message, Icon, Transition, Responsive } from 'semantic-ui-react'
+import { Button, Form, Divider, Table, Grid, Header, Message, Icon, Transition } from 'semantic-ui-react'
 import { firestore } from '../../firebase';
 
 export default class Monthly extends Component {

@@ -70,7 +70,7 @@ export default class Graph extends Component {
                         legendOffset: 40,
                         legendPosition: 'middle'
                     }}
-                    curve={'catmullRom'}
+                    curve={this.props.curve}
                     enablePoints={this.props.enablePoints}
                     enablePointLabel={false}
                     pointSymbol={CustomSymbol}
