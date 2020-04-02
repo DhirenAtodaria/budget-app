@@ -52,8 +52,7 @@ export default class Daily extends Component {
     this.dataRetriever();
   }
 
-  handleChange = date => {
-    console.log(date);
+  handleChange = (date) => {
     this.setState({
       formData: {
         ...this.state.formData,
