@@ -7,6 +7,7 @@ This web application is designed to provide a useful overview of your general ou
 To check it out, click the link:
 * [Budget App](https://personal-project-budget.web.app/login)
 
+To use the app. First step is to signup/login. Once logged in, you can head over to any of the Daily/Monthly/Yearly spends and enter a recent spending that has occured. Once done, return to the overview and the graphs will automatically update.
 
 ## Built With
 
