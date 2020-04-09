@@ -1,6 +1,20 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Oznom - Budgeting App
 
-## Available Scripts
+This web application is designed to provide a useful overview of your general outgoing expendiure each month. It has features including detailed graphs automatically rendering with data using d3.js and allows you to enter your recurring spends such as bills etc. It's made with React and firebase. 
+
+## Getting Started
+
+To check it out, click the link:
+* [Budget App](https://personal-project-budget.web.app/login)
+
+
+## Built With
+
+* [React](https://reactjs.org/) - The web framework used
+* [Semantic UI](https://react.semantic-ui.com/) - The UI framework
+* [Firebase](https://firebase.google.com/) - Used as the backend
+
+### Installing on your local computer:
 
 In the project directory, you can run:
 
