@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styles from "./StatisticsPage.module.scss";
 import Graph from "./Graph";
 import { firestore } from "../../firebase";
-import { Card, Loader, Responsive } from "semantic-ui-react";
+import { Card, Loader, Responsive, Statistic, Icon } from "semantic-ui-react";
 
 export default class StatisticsPage extends Component {
   state = {
@@ -242,7 +242,7 @@ export default class StatisticsPage extends Component {
       this.state.data[0].data.forEach(item => {
         total += Number(item.y)
       })
-      return total;
+      return Math.round(total);
     }
   }
 
@@ -251,69 +251,62 @@ export default class StatisticsPage extends Component {
       <>
       <Responsive as={"section"} className={styles.container} minWidth={768}>
           <Loader active={this.state.activeLoader} />
-        <div className={styles.graph}>
-          {this.allDataPresent() && (
-            <div className={styles.graphcontainer}>
-              <h4 style={{ opacity: 0.7, textAlign: "center" }}>
-              Current Month's Spending Trend
-              </h4>
-              <Graph scheme={{ scheme: "category10" }} data={this.state.currentData} tickValues="every 1 days" curve="catmullRom"/>
-            </div>
-          )}
-          {this.allDataPresent() && (
-          <div className={styles.graphcontainer}>
-            <h4 style={{ opacity: 0.7, textAlign: "center" }}>
-              Previous Month's Spending Trends
-            </h4>
-            <Graph scheme={{ scheme: "category10" }} data={this.state.data} tickValues="every 6 days" curve="basis" />
-          </div>
-          )}
-          {this.allDataPresent() && (
-          <div className={styles.graphcontainer}>
-            <h4 style={{ opacity: 0.7, textAlign: "center" }}>
-              Previous Month's Spending Trends Excluding Yearly/Monthly Bills
-            </h4>
-            <Graph scheme={{ scheme: "nivo" }} data={this.state.data2} tickValues="every 6 days" curve="basis" />
-          </div>
-          )}
-        </div>
-        {this.state.dataPresent && <div className={styles.cardcontainer}>
-          {(this.state.monthly) ? (
-            <Card
-              
-              header="Current Monthly Bills"
-              description={`For the month of March 2020 your current monthly bills are £${this.state.monthly}`}
-            />
-          ) :
-          (
-            <Card
-            
-            header="Current Monthly Bills"
-            description={`You do not currently have any monthly bills.`}
-          />
-          )
-          }
-
-          {(this.state.yearly) ? (
-            <Card
-              
-              header="Current Yearly Bills"
-              description={`For the month of Year 2020 your current Yearly bills are £${this.state.yearly}`}
-            />
-          )
-          :
-          (
-            <Card
-              
-              header="Current Yearly Bills"
-              description={`You do not currently have any yearly bills.`}
-            />
-          )
-          }
-            <Card  color='black' header='Total Monthly Spends - Feb' description={this.totalGetter()}/>
-            <Card  color='black' header='Amount Over/Under Budget - Feb' description={3000 - this.totalGetter()} />
-
+        
+        {this.state.dataPresent && <div className={styles.topHeader}>
+         <Card fluid>
+          <Card.Content style={{fontSize: "18px"}} header='Overview' />
+          <Card.Content>
+          <Statistic.Group widths="three">
+            <Statistic size="tiny">
+              <Statistic.Value>
+                <Icon fitted name="balance scale" /> £{this.totalGetter()}
+              </Statistic.Value>
+              <Statistic.Label><br />Total Monthly Spends</Statistic.Label>
+            </Statistic>
+            <Statistic size="tiny">
+              <Statistic.Value>
+                <Icon name="calculator" fitted /> £{3000-this.totalGetter()}
+              </Statistic.Value>
+              <Statistic.Label><br /> Remaining Monthly Budget</Statistic.Label>
+            </Statistic>
+            <Statistic size="tiny">
+              <Statistic.Value>
+                <Icon name="book" fitted /> £{this.state.monthly}
+              </Statistic.Value>
+              <Statistic.Label><br />Total Monthly Bills</Statistic.Label>
+            </Statistic>
+          </Statistic.Group>
+          </Card.Content>
+          <Card.Content></Card.Content>
+        </Card>
         </div>}
+
+        <div className={styles.graphyee}>
+          <div className={styles.graphyee1}>
+            <Card fluid>
+              <Card.Content style={{fontSize: "18px"}} header="Current Month's Spending Trends" />
+              <Card.Content>
+                {this.allDataPresent() && <div className={styles.box}>
+                  <Graph scheme={{ scheme: "category10" }} data={this.state.currentData} tickValues="every 3 days" curve="catmullRom"/>
+                </div>
+                }
+              </Card.Content>
+              <Card.Content></Card.Content>
+            </Card>
+          </div>
+          <div className={styles.graphyee2}>
+          <Card fluid>
+            <Card.Content style={{fontSize: "18px"}} header="Previous Month's Spending Trends" />
+            <Card.Content>
+              {this.allDataPresent() && <div className={styles.box}>
+                <Graph scheme={{ scheme: "category10" }} data={this.state.data} tickValues="every 6 days" curve="basis" />
+              </div>
+              }
+            </Card.Content>
+            <Card.Content></Card.Content>
+          </Card>
+          </div>
+        </div>
       </Responsive>
       <Responsive as={"section"} className={styles.container} maxWidth={768}>
           <Loader active={this.state.activeLoader} />
