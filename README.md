@@ -1,6 +1,6 @@
 # Oznom - Budgeting App
 
-This web application is designed to provide a useful overview of your general outgoing expendiure each month. It has features including detailed graphs automatically rendering with data using d3.js and allows you to enter your recurring spends such as bills etc. It's made with React and firebase. 
+This web application is designed to provide a useful overview of your general outgoing expendiure each month. It has features including detailed graphs automatically rendering with data using d3.js and allows you to enter your recurring spends such as bills etc. It's made with React, Redux and Firebase. 
 
 ## Getting Started
 
@@ -12,6 +12,7 @@ To use the app. First step is to signup/login. Once logged in, you can head over
 ## Built With
 
 * [React](https://reactjs.org/) - The web framework used
+* [Redux](https://redux.js.org/) - State management tool
 * [Semantic UI](https://react.semantic-ui.com/) - The UI framework
 * [Firebase](https://firebase.google.com/) - Used as the backend
 
