@@ -195,6 +195,8 @@ class Login extends Component {
                                             onChange={this.handleDetails}
                                         />
                                         <Message
+                                            error={true}
+                                            header="Action Forbidden"
                                             content={this.props.errors.content}
                                         />
                                         <Button
@@ -233,7 +235,6 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         user: state.auth.user,
         errors: state.auth.errors,

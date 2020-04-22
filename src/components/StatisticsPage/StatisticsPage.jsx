@@ -302,7 +302,7 @@ class StatisticsPage extends Component {
     totalGetter = () => {
         let total = 0;
         if (this.state.data) {
-            this.state.data[0].data.forEach((item) => {
+            this.state.currentData[0].data.forEach((item) => {
                 total += Number(item.y);
             });
             return Math.round(total);

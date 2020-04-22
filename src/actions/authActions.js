@@ -32,9 +32,6 @@ export const signUp = (credentials) => (
     firebase
         .auth()
         .createUserWithEmailAndPassword(credentials.email, credentials.password)
-        .catch((errors) => {
-            dispatch({ type: "LOGIN_ERROR", errors });
-        })
         .then((result) => {
             dispatch({ type: "LOGIN_SUCCESS", result });
             firestore.collection("users").add({
@@ -45,6 +42,9 @@ export const signUp = (credentials) => (
         })
         .then(() => {
             globalHistory.navigate("/app");
+        })
+        .catch((errors) => {
+            dispatch({ type: "LOGIN_ERROR_2", errors });
         });
 };
 
