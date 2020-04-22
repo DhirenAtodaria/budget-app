@@ -52,10 +52,6 @@ class Login extends Component {
         this.props.signUp(this.state.credentials);
     };
 
-    signOut = () => {
-        this.props.signOut();
-    };
-
     render() {
         return (
             <section className={styles.container}>

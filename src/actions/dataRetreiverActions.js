@@ -1,9 +1,13 @@
-const loadingHandling = (bool) => {
+export const loadingHandling = (bool) => {
     return { type: "LOADING_CHANGE", payload: bool };
 };
 
 export const errorHandling = (bool) => {
     return { type: "ERROR_CHANGE", payload: bool };
+};
+
+export const dataReset = () => {
+    return { type: "DATA_RESET" };
 };
 
 export const dataFilter = (date) => {

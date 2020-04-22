@@ -7,6 +7,7 @@ import {
     errorHandling,
     dataFilter,
     dataRestore,
+    dataReset,
 } from "../../actions/dataRetreiverActions";
 import "./Daily.css";
 import {
@@ -34,11 +35,14 @@ class Daily extends Component {
             type: "daily",
             uid: this.props.user.uid,
         },
+        reset: false,
         filterDate: new Date(),
     };
 
-    componentDidMount() {
-        this.props.dataRetreiver("spendings", this.props.user.uid);
+    async componentDidMount() {
+        await this.props.dataReset();
+        await this.props.dataRetreiver("spendings", this.props.user.uid);
+        this.setState({ reset: true });
     }
 
     handleChange = (date) => {
@@ -156,7 +160,7 @@ class Daily extends Component {
                 <Divider section horizontal>
                     Daily Spends
                 </Divider>
-                {this.props.spendings.active && (
+                {this.dataPresent() && this.state.reset && (
                     <>
                         <Responsive
                             as={Table}
@@ -222,7 +226,7 @@ class Daily extends Component {
                             <Transition.Group
                                 as={Table.Body}
                                 animation="fade up"
-                                duration={200}
+                                duration={500}
                             >
                                 {this.props.spendings.filteredspends.map(
                                     (spend, index) => (
@@ -297,7 +301,6 @@ class Daily extends Component {
                                     {this.props.spendings.filteredspends.map(
                                         (spend, index) => (
                                             <Table.Row key={index}>
-                                                {/* <Table.Cell>{this.dateReturner(spend.date.toDate())}</Table.Cell> */}
                                                 <Table.Cell>
                                                     {spend.name}
                                                 </Table.Cell>
@@ -344,4 +347,5 @@ export default connect(mapStateToProps, {
     errorHandling,
     dataFilter,
     dataRestore,
+    dataReset,
 })(Daily);

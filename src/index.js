@@ -14,9 +14,10 @@ import "./index.scss";
 import App from "./containers/App";
 import * as serviceWorker from "./serviceWorker";
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
     rootReducer,
-    compose(
+    composeEnhancers(
         applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
         reactReduxFirebase(firebase, { attachAuthIsReady: true }),
         reduxFirestore(firebase)

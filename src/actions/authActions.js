@@ -49,11 +49,7 @@ export const signUp = (credentials) => (
 };
 
 export const signOut = () => (dispatch, getState, { getFirebase }) => {
+    globalHistory.navigate("/");
     const firebase = getFirebase();
-    firebase
-        .auth()
-        .signOut()
-        .then(() => {
-            globalHistory.navigate("/");
-        });
+    firebase.auth().signOut();
 };

@@ -10,8 +10,8 @@ export default class Routes extends Component {
         return (
             <Router className={styles.container} primary={false}>
                 <Redirect noThrow from="/" to="login" />
-                <Main path="app/*" />
                 <Login path="login" />
+                <Main path="app/*" />
             </Router>
         );
     }

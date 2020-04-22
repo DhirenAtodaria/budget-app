@@ -65,6 +65,15 @@ export const dataReducer = (state = initState, action) => {
                 ...state,
                 filteredspends: state.spends,
             };
+        case "DATA_RESET":
+            return {
+                ...state,
+                spends: [],
+                filteredspends: [],
+                loading: true,
+                active: false,
+                error: false,
+            };
         default:
             return state;
     }
