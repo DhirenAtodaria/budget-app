@@ -6,10 +6,6 @@ import Graph from "./Graph";
 import { Card, Loader, Responsive, Statistic, Icon } from "semantic-ui-react";
 
 class StatisticsPage extends Component {
-    state = {
-        dataPresent: false,
-    };
-
     componentDidMount() {
         this.props.currentMonthsDataRetriever(
             this.props.user.uid,

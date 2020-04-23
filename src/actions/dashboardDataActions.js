@@ -1,7 +1,3 @@
-const activeAction = (bool) => {
-    return { type: "ACTIVATE_LOADER", bool };
-};
-
 const dateReturner = (date) => {
     let month = date.getMonth() + 1;
     let day = date.getDate();
